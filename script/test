@@ -1,2 +1,4 @@
+#!/bin/bash
+
 script/fmt
-go test -race -v .
+GO111MODULE=off go test -race -v .
