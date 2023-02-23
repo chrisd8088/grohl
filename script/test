@@ -1,4 +1,5 @@
 #!/bin/bash
 
 script/fmt
+script/lint
 GO111MODULE=off go test -race -v .

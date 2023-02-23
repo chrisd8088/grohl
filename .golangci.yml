@@ -1,0 +1,19 @@
+linters:
+  enable:
+    - asasalint
+    - bodyclose
+    - depguard
+    - exportloopref
+    - gochecknoinits
+    - gocyclo
+    - goimports
+    - govet
+    - misspell
+    - nakedret
+    - prealloc
+    - unconvert
+    - unparam
+  disable:
+    - errcheck
+    - gosimple
+    - staticcheck
