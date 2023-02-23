@@ -6,6 +6,7 @@ linters:
     - exportloopref
     - gochecknoinits
     - gocyclo
+    - gofmt
     - goimports
     - govet
     - misspell
