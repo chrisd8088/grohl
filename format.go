@@ -18,14 +18,14 @@ func BuildLogParts(data Data, addTime bool) []string {
 	index := 0
 	extraRows := 0
 	if addTime {
-		extraRows = extraRows + 1
+		extraRows++
 		delete(data, "now")
 	}
 
 	pieces := make([]string, len(data)+extraRows)
 	for key, value := range data {
 		pieces[index+extraRows] = fmt.Sprintf("%s=%s", key, Format(value))
-		index = index + 1
+		index++
 	}
 
 	if addTime {
@@ -65,17 +65,18 @@ func formatString(value interface{}) string {
 		return "nil"
 	}
 
-	str = strings.Replace(str, "\n", "|", -1)
+	str = strings.ReplaceAll(str, "\n", "|")
 	if idx := strings.Index(str, " "); idx != -1 {
 		hasSingle := strings.Contains(str, sQuote)
 		hasDouble := strings.Contains(str, dQuote)
-		str = strings.Replace(str, back, backReplace, -1)
+		str = strings.ReplaceAll(str, back, backReplace)
 
-		if hasSingle && hasDouble {
-			str = dQuote + strings.Replace(str, dQuote, dReplace, -1) + dQuote
-		} else if hasDouble {
+		switch {
+		case hasSingle && hasDouble:
+			str = dQuote + strings.ReplaceAll(str, dQuote, dReplace) + dQuote
+		case hasDouble:
 			str = sQuote + str + sQuote
-		} else {
+		default:
 			str = dQuote + str + dQuote
 		}
 	} else {

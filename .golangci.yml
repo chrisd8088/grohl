@@ -6,6 +6,7 @@ linters:
     - exhaustruct
     - exportloopref
     - gochecknoinits
+    - gocritic
     - gocyclo
     - gofmt
     - goimports

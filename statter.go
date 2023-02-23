@@ -78,7 +78,7 @@ func (s *_statter) StatterBucketSuffix(suffix string) {
 	if strings.HasSuffix(s.StatterBucket, ".") {
 		sep = ""
 	}
-	s.StatterBucket = s.StatterBucket + fmt.Sprintf("%s%s", sep, suffix)
+	s.StatterBucket += fmt.Sprintf("%s%s", sep, suffix)
 }
 
 // Timing sends the timing to the configured Statter.

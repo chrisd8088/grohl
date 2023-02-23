@@ -49,7 +49,7 @@ func (b *loggerBuffer) Lines() []builtLogLine {
 
 		for data := range b.channel {
 			b.lines[i] = buildLogLine(data)
-			i = i + 1
+			i++
 		}
 	}
 

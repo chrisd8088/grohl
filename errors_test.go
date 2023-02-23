@@ -105,7 +105,9 @@ func TestLogsWrappedError(t *testing.T) {
 		"message=sup",
 	}
 
-	otherRows := append(firstRow, "~site=")
+	otherRows := make([]string, len(firstRow))
+	copy(otherRows, firstRow)
+	otherRows = append(otherRows, "~site=")
 
 	for i, line := range buf.Lines() {
 		if i == 0 {
@@ -133,7 +135,9 @@ func TestLogsError(t *testing.T) {
 		"message=Test",
 	}
 
-	otherRows := append(firstRow, "~site=")
+	otherRows := make([]string, len(firstRow))
+	copy(otherRows, firstRow)
+	otherRows = append(otherRows, "~site=")
 
 	for i, line := range buf.Lines() {
 		if i == 0 {
