@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"reflect"
 	"runtime"
-	"sync"
 )
 
 type Err struct {
@@ -108,17 +107,10 @@ func (e *Err) SetReportable(v bool) {
 	e.reportable = v
 }
 
-var stackPool = sync.Pool{
-	New: func() interface{} {
-		return make([]byte, 1024*1024)
-	},
-}
-
-// Stack returns the current runtime stack (up to 1MB).
+// Stack returns the current runtime stack (up to 64k).
 func Stack() []byte {
-	stackBuf := stackPool.Get().([]byte)
+	stackBuf := make([]byte, 64*1024)
 	written := runtime.Stack(stackBuf, false)
-	stackPool.Put(stackBuf)
 	return stackBuf[:written]
 }
 

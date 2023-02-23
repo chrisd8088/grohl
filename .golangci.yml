@@ -15,4 +15,3 @@ linters:
     - unparam
   disable:
     - errcheck
-    - staticcheck
