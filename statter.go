@@ -17,6 +17,7 @@ type Statter interface {
 
 // Counter writes a counter value to the Context.
 func (c *Context) Counter(sampleRate float32, bucket string, n ...int) {
+	//#nosec G404 -- Pseudo-random values are sufficient for sampling.
 	if rand.Float32() > sampleRate {
 		return
 	}
@@ -28,6 +29,7 @@ func (c *Context) Counter(sampleRate float32, bucket string, n ...int) {
 
 // Timing writes a timer value to the Context.
 func (c *Context) Timing(sampleRate float32, bucket string, d ...time.Duration) {
+	//#nosec G404 -- Pseudo-random values are sufficient for sampling.
 	if rand.Float32() > sampleRate {
 		return
 	}
@@ -39,6 +41,7 @@ func (c *Context) Timing(sampleRate float32, bucket string, d ...time.Duration) 
 
 // Gauge writes a static value to the Context.
 func (c *Context) Gauge(sampleRate float32, bucket string, value ...string) {
+	//#nosec G404 -- Pseudo-random values are sufficient for sampling.
 	if rand.Float32() > sampleRate {
 		return
 	}

@@ -8,6 +8,7 @@ linters:
     - gocyclo
     - gofmt
     - goimports
+    - gosec
     - govet
     - misspell
     - nakedret
