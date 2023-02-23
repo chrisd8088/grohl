@@ -3,6 +3,7 @@ linters:
     - asasalint
     - bodyclose
     - depguard
+    - exhaustruct
     - exportloopref
     - gochecknoinits
     - gocyclo

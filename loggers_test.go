@@ -85,5 +85,5 @@ func setupLogger(t *testing.T) (*Context, *loggerBuffer) {
 	logger, _ := NewChannelLogger(ch)
 	context := NewContext(nil)
 	context.Logger = logger
-	return context, &loggerBuffer{channel: ch, t: t}
+	return context, &loggerBuffer{channel: ch, t: t, lines: nil, index: 0}
 }

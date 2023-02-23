@@ -15,7 +15,7 @@ var CurrentLogger Logger = NewIoLogger(nil)
 
 // CurrentContext is the default Context used by Log, Report, AddContext,
 // DeleteContext, NewTimer.
-var CurrentContext = newContext(make(Data), CurrentLogger, "s", nil, &_statter{StatterSampleRate: 1})
+var CurrentContext = newContext(make(Data), CurrentLogger, "s", nil, &_statter{statter: nil, StatterSampleRate: 1, StatterBucket: ""})
 
 // The CurrentStatter is the default Statter used in Counter, Timing, Gauge.
 var CurrentStatter Statter = CurrentContext
