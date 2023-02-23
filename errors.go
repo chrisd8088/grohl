@@ -129,7 +129,7 @@ type ErrorReporter interface {
 // Report writes the error to the ErrorReporter, or logs it if there is none.
 func (c *Context) Report(err error, data Data) error {
 	if rErr, ok := err.(reportableError); ok {
-		if rErr.Reportable() == false {
+		if !rErr.Reportable() {
 			return nil
 		}
 	}

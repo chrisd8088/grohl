@@ -111,9 +111,9 @@ func AssertData(t *testing.T, data Data, expected ...string) {
 func AssertBuiltLine(t *testing.T, line builtLogLine, expected ...string) {
 	for _, pair := range expected {
 		if strings.HasPrefix(pair, "~") {
-			pair = pair[1:len(pair)]
+			pair = pair[1:]
 			found := false
-			for actual, _ := range line.pairs {
+			for actual := range line.pairs {
 				if !found {
 					found = strings.HasPrefix(actual, pair)
 				}

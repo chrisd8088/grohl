@@ -48,7 +48,7 @@ func Format(value interface{}) string {
 	}
 
 	if formatter == nil {
-		if _, ok := t.MethodByName("Error"); ok == true {
+		if _, ok := t.MethodByName("Error"); ok {
 			return formatString(value.(error).Error())
 		} else {
 			return formatString(fmt.Sprintf("%+v", value))
@@ -67,8 +67,8 @@ func formatString(value interface{}) string {
 
 	str = strings.Replace(str, "\n", "|", -1)
 	if idx := strings.Index(str, " "); idx != -1 {
-		hasSingle := strings.Index(str, sQuote) != -1
-		hasDouble := strings.Index(str, dQuote) != -1
+		hasSingle := strings.Contains(str, sQuote)
+		hasDouble := strings.Contains(str, dQuote)
 		str = strings.Replace(str, back, backReplace, -1)
 
 		if hasSingle && hasDouble {
