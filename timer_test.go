@@ -11,8 +11,8 @@ func TestTimerLog(t *testing.T) {
 	timer.Add("c", "3")
 	timer.Log(Data{"d": "4"})
 
-	buf.AssertLine("a=1", "b=2", "at=start")
-	buf.AssertLine("a=1", "b=2", "c=3", "d=4", "elapsed=0.000")
+	buf.AssertLine(`a="1"`, `b="2"`, `at="start"`)
+	buf.AssertLine(`a="1"`, `b="2"`, `c="3"`, `d="4"`, "elapsed=0.000")
 	buf.AssertEOF()
 }
 
@@ -23,8 +23,8 @@ func TestTimerLogInMS(t *testing.T) {
 	timer.TimeUnit = "ms"
 	timer.Log(Data{"c": "3"})
 
-	buf.AssertLine("a=1", "b=2", "at=start")
-	buf.AssertLine("a=1", "b=2", "c=3", "~elapsed=0.00")
+	buf.AssertLine(`a="1"`, `b="2"`, `at="start"`)
+	buf.AssertLine(`a="1"`, `b="2"`, `c="3"`, "~elapsed=0.00")
 	buf.AssertEOF()
 }
 
@@ -35,8 +35,8 @@ func TestTimerFinish(t *testing.T) {
 	timer.Add("c", "3")
 	timer.Finish()
 
-	buf.AssertLine("a=1", "b=2", "at=start")
-	buf.AssertLine("a=1", "b=2", "c=3", "at=finish", "elapsed=0.000")
+	buf.AssertLine(`a="1"`, `b="2"`, `at="start"`)
+	buf.AssertLine(`a="1"`, `b="2"`, `c="3"`, `at="finish"`, "elapsed=0.000")
 	buf.AssertEOF()
 }
 
@@ -51,9 +51,9 @@ func TestTimerWithCurrentStatter(t *testing.T) {
 	timer.Finish()
 	CurrentStatter = oldStatter
 
-	buf.AssertLine("a=1", "b=2", "at=start")
-	buf.AssertLine("a=1", "metric=bucket", "timing=0")
-	buf.AssertLine("a=1", "b=2", "at=finish", "elapsed=0.000")
+	buf.AssertLine(`a="1"`, `b="2"`, `at="start"`)
+	buf.AssertLine(`a="1"`, `metric="bucket"`, "timing=0")
+	buf.AssertLine(`a="1"`, `b="2"`, `at="finish"`, "elapsed=0.000")
 }
 
 func TestTimerWithStatter(t *testing.T) {
@@ -65,9 +65,9 @@ func TestTimerWithStatter(t *testing.T) {
 	timer.SetStatter(statter, 1.0, "bucket")
 	timer.Finish()
 
-	buf.AssertLine("a=1", "b=2", "at=start")
-	buf.AssertLine("metric=bucket", "timing=0")
-	buf.AssertLine("a=1", "b=2", "at=finish", "elapsed=0.000")
+	buf.AssertLine(`a="1"`, `b="2"`, `at="start"`)
+	buf.AssertLine(`metric="bucket"`, "timing=0")
+	buf.AssertLine(`a="1"`, `b="2"`, `at="finish"`, "elapsed=0.000")
 	buf.AssertEOF()
 }
 
@@ -79,9 +79,9 @@ func TestTimerWithContextStatter(t *testing.T) {
 	timer.StatterBucket = "bucket2"
 	timer.Finish()
 
-	buf.AssertLine("a=1", "b=2", "at=start")
-	buf.AssertLine("a=1", "metric=bucket2", "timing=0")
-	buf.AssertLine("a=1", "b=2", "at=finish", "elapsed=0.000")
+	buf.AssertLine(`a="1"`, `b="2"`, `at="start"`)
+	buf.AssertLine(`a="1"`, `metric="bucket2"`, "timing=0")
+	buf.AssertLine(`a="1"`, `b="2"`, `at="finish"`, "elapsed=0.000")
 	buf.AssertEOF()
 
 	if context.StatterBucket == "bucket2" {
@@ -100,8 +100,8 @@ func TestTimerWithNilStatter(t *testing.T) {
 	timer.Finish()
 
 	CurrentContext.Logger = oldlogger
-	buf.AssertLine("a=1", "b=2", "at=start")
-	buf.AssertLine("metric=bucket", "timing=0")
-	buf.AssertLine("a=1", "b=2", "at=finish", "elapsed=0.000")
+	buf.AssertLine(`a="1"`, `b="2"`, `at="start"`)
+	buf.AssertLine(`metric="bucket"`, "timing=0")
+	buf.AssertLine(`a="1"`, `b="2"`, `at="finish"`, "elapsed=0.000")
 	buf.AssertEOF()
 }

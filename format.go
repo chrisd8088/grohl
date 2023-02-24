@@ -65,37 +65,17 @@ func formatString(value interface{}) string {
 	}
 
 	str = strings.ReplaceAll(str, "\n", "|")
-	if idx := strings.Index(str, " "); idx != -1 {
-		hasSingle := strings.Contains(str, sQuote)
-		hasDouble := strings.Contains(str, dQuote)
-		str = strings.ReplaceAll(str, back, backReplace)
-
-		switch {
-		case hasSingle && hasDouble:
-			str = dQuote + strings.ReplaceAll(str, dQuote, dReplace) + dQuote
-		case hasDouble:
-			str = sQuote + str + sQuote
-		default:
-			str = dQuote + str + dQuote
-		}
-	} else {
-		if idx := strings.Index(str, "="); idx != -1 {
-			str = dQuote + str + dQuote
-		}
-	}
+	str = strings.ReplaceAll(str, dQuote, "'")
+	str = strings.ReplaceAll(str, `\`, `\\`)
+	str = dQuote + str + dQuote
 
 	return str
 }
 
 const (
-	space       = " "
-	equals      = "="
-	sQuote      = "'"
-	dQuote      = `"`
-	dReplace    = `\"`
-	back        = `\`
-	backReplace = `\\`
-	timeLayout  = "2006-01-02T15:04:05-0700"
+	space      = " "
+	dQuote     = `"`
+	timeLayout = "2006-01-02T15:04:05-0700"
 )
 
 var durationFormat = []byte("f")[0]

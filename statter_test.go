@@ -8,8 +8,8 @@ import (
 func TestLogsCounter(t *testing.T) {
 	s, buf := setupLogger(t)
 	s.Counter(1.0, "a", 1, 2)
-	buf.AssertLine("metric=a", "count=1")
-	buf.AssertLine("metric=a", "count=2")
+	buf.AssertLine(`metric="a"`, "count=1")
+	buf.AssertLine(`metric="a"`, "count=2")
 	buf.AssertEOF()
 }
 
@@ -19,16 +19,16 @@ func TestLogsTiming(t *testing.T) {
 	dur2, _ := time.ParseDuration("3s")
 
 	s.Timing(1.0, "a", dur1, dur2)
-	buf.AssertLine("metric=a", "timing=15")
-	buf.AssertLine("metric=a", "timing=3000")
+	buf.AssertLine(`metric="a"`, "timing=15")
+	buf.AssertLine(`metric="a"`, "timing=3000")
 	buf.AssertEOF()
 }
 
 func TestLogsGauge(t *testing.T) {
 	s, buf := setupLogger(t)
 	s.Gauge(1.0, "a", "1", "2")
-	buf.AssertLine("metric=a", "gauge=1")
-	buf.AssertLine("metric=a", "gauge=2")
+	buf.AssertLine(`metric="a"`, `gauge="1"`)
+	buf.AssertLine(`metric="a"`, `gauge="2"`)
 	buf.AssertEOF()
 }
 

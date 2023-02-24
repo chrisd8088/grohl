@@ -100,9 +100,9 @@ func TestLogsWrappedError(t *testing.T) {
 		"b=2",
 		"c=3",
 		"d=4",
-		"at=exception",
-		"class=*grohl.Err",
-		"message=sup",
+		`at="exception"`,
+		`class="*grohl.Err"`,
+		`message="sup"`,
 	}
 
 	otherRows := make([]string, len(firstRow))
@@ -130,9 +130,9 @@ func TestLogsError(t *testing.T) {
 		"a=1",
 		"b=2",
 		"c=3",
-		"at=exception",
-		"class=*errors.errorString",
-		"message=Test",
+		`at="exception"`,
+		`class="*errors.errorString"`,
+		`message="Test"`,
 	}
 
 	otherRows := make([]string, len(firstRow))
