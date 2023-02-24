@@ -64,7 +64,7 @@ func (b *loggerBuffer) AssertLine(parts ...string) {
 	}
 
 	AssertBuiltLine(b.t, lines[b.index], parts...)
-	b.index += 1
+	b.index++
 }
 
 func (b *loggerBuffer) AssertEOF() {

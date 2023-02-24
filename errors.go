@@ -15,10 +15,14 @@ type Err struct {
 	stack      []byte
 }
 
+//revive:disable:var-naming
+
 type HttpError struct {
 	StatusCode int
 	*Err
 }
+
+//revive:enable:var-naming
 
 // NewError wraps an error with the error's message.
 func NewError(err error) *Err {
@@ -43,6 +47,8 @@ func NewErrorf(err error, format string, a ...interface{}) *Err {
 	}
 }
 
+//revive:disable:var-naming
+
 // NewHttpError wraps an error with an HTTP status code and the given error's
 // message.
 func NewHttpError(err error, status int) *HttpError {
@@ -56,6 +62,8 @@ func NewHttpErrorf(err error, status int, format string, a ...interface{}) *Http
 	}
 	return &HttpError{status, NewErrorf(err, format, a...)}
 }
+
+//revive:enable:var-naming
 
 // Error returns the error message.  This will be the inner error's message,
 // unless a formatted message is provided from Errorf().
@@ -143,23 +151,23 @@ func (c *Context) Report(err error, data Data) error {
 
 	if c.ErrorReporter != nil {
 		return c.ErrorReporter.Report(err, merged)
-	} else {
-		var logErr error
-		logErr = c.log(merged)
+	}
+
+	var logErr error
+	logErr = c.log(merged)
+	if logErr != nil {
+		return logErr
+	}
+
+	for _, line := range ErrorBacktraceLines(err) {
+		lineData := dupeMaps(merged)
+		lineData["site"] = line
+		logErr = c.log(lineData)
 		if logErr != nil {
 			return logErr
 		}
-
-		for _, line := range ErrorBacktraceLines(err) {
-			lineData := dupeMaps(merged)
-			lineData["site"] = line
-			logErr = c.log(lineData)
-			if logErr != nil {
-				return logErr
-			}
-		}
-		return nil
 	}
+	return nil
 }
 
 // ErrorBacktrace creates a backtrace of the call stack.

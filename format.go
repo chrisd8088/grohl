@@ -50,9 +50,8 @@ func Format(value interface{}) string {
 	if formatter == nil {
 		if _, ok := t.MethodByName("Error"); ok {
 			return formatString(value.(error).Error())
-		} else {
-			return formatString(fmt.Sprintf("%+v", value))
 		}
+		return formatString(fmt.Sprintf("%+v", value))
 	}
 
 	return formatter(value)

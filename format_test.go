@@ -7,8 +7,8 @@ import (
 	"time"
 )
 
-var exampleTime = time.Date(2000, 1, 2, 3, 4, 5, 6, time.UTC)
-var exampleError = fmt.Errorf("error message")
+var timeExample = time.Date(2000, 1, 2, 3, 4, 5, 6, time.UTC)
+var errExample = fmt.Errorf("error message")
 
 type ExampleStruct struct {
 	Value interface{}
@@ -40,8 +40,8 @@ var actuals = []Data{
 	{"fn": "float", "test": float32(1.0)},
 	{"fn": "bool", "test": true},
 	{"fn": "nil", "test": nil},
-	{"fn": "time", "test": exampleTime},
-	{"fn": "error", "test": exampleError},
+	{"fn": "time", "test": timeExample},
+	{"fn": "error", "test": errExample},
 	{"fn": "slice", "test": []byte{86, 87, 88}},
 	{"fn": "struct", "test": ExampleStruct{Value: "testing123"}},
 }

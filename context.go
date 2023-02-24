@@ -36,9 +36,8 @@ func (c *Context) Add(key string, value interface{}) {
 func (c *Context) Merge(data Data) Data {
 	if data == nil {
 		return dupeMaps(c.data)
-	} else {
-		return dupeMaps(c.data, data)
 	}
+	return dupeMaps(c.data, data)
 }
 
 // Data returns the Context's current Data.

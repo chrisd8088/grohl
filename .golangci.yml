@@ -15,6 +15,7 @@ linters:
     - misspell
     - nakedret
     - prealloc
+    - revive
     - unconvert
     - unparam
   disable:
